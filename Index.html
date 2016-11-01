@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="spCart">
+		<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  		
+  		<style>
+  		.navbar {
+				  padding:5px;
+				  background: white;
+				   box-shadow: 2px 2px lightgrey;
+				}
+		.navbar-default {
+				background-color: #fff;
+				border-color: #fff;
+				}
+  			.navbar-brand {
+							  padding: 0px;
+							}
+		.navbar-brand>img {
+							  height: 100%;
+							  padding: 1px;
+							  width: auto;
+							}
+		.jumbotron {
+						height: 100%;
+						padding: 25px;
+					}
+					.productData {width: 20%;float: left;list-style: none;height: 580px; padding: 5px;}
+					.productData img {width: 100%}
+  		</style>
+		</head>
+	<body ng-controller="productsCtrl">
+			<div class="container-fluid">
+		<div class="navbar navbar-default navbar-fixed-top">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="logo.png"/></a>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<div class="jumbotron" >
+			<div class="row">
+		    
+				<div class="col-sm-6" style="background-color: lightgrey; border: 1px solid grey; padding: 5px; margin: 0px;">
+					<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+	    			<input type="Text" class="form-control" size="100%" placeholder="Search (by tags)" ng-model="searchText">
+	    			<span class="input-group-addon"><span class="glyphicon glyphicon-remove-circle"></span></span>
+					</div>
+				</div>
+			<div class="col-sm-2 text-left" style="background-color: lightgrey; border: 1px solid grey; border-radius: 4px; width:175px; margin: 0px 30px;" >
+				<div style="width: 50%; float: left; font-size:21px;padding: 2px;">
+					Sort by
+				</div>
+				<div style="width: 50%; float: right; font-size:15px;padding: 2px">
+					<input type="radio" name="sort" ng-model="sortOrder" value="myData.rating"> Rating<br>
+					<input type="radio" name="sort" ng-model="sortOrder" value="myData.like"> Like
+				</div >
+			</div>
+			<div class="col-sm-4 text-left" style="background-color: lightgrey; border: 1px solid grey; border-radius: 4px; width:300px; margin: 10px 30px;" >
+				<div style="width: 50%; float: left; font-size:20px;padding: 2px;">
+					Total Likes:
+				</div>
+				<div style="width: 50%; float: right; font-size:20px;padding: 2px">
+					| API Hits: 
+				</div >
+			</div>
+		</div>
+		</div>
+		<div class="container-fluid">
+		
+		
+		<ul>
+		<li ng-repeat="product in myData | filter:searchText | orderBy: sortBy : sortOrder" class="productData">
+		<a href="#"><img ng-src="{{product.image}}"/></a>
+		<a href="#"><h4>{{product.name}}</h4></a>
+		<i class="glyphicon glyphicon-tag"></i> <span>{{product.price}}</span><br>
+		<i class="glyphicon glyphicon-star-empty"></i> <span>{{product.rating}}</span>
+		<p>{{product.quantity}}</p>
+		<span>Color </span><div style="border-radius: 50%; width:30px; height:30px; background-color: {{product.color}}; display: inline-block; vertical-align: middle;"></div><br>
+		<p ng-click="ShowHide('product.id')"><u>Details</u></p>
+		<div ng-show = "IsVisible">{{product.description}}</div>
+ 
+		</li>
+			
+		</ul>
+		</div>
+		<script src="angular.min.js"></script>
+  		<script src="angular-route.min.js"></script>
+  		<script src="controller.js"></script>	
+	</body>
+</html>
